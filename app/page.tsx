@@ -4,6 +4,7 @@ import { useState, useEffect } from "react";
 export default function Home() {
   const [sealBroken, setSealBroken] = useState(false);
   const [status, setStatus] = useState("");
+  const [attending, setAttending] = useState<string>("");
   const [countdown, setCountdown] = useState({
     days: 0,
     hours: 0,
@@ -118,7 +119,7 @@ export default function Home() {
           <div className="card detail-card">
             <div className="card-icon">🕐</div>
             <h3>Ceremony</h3>
-            <p>Morning</p>
+            <p>Evening</p>
             <p className="highlight">6:00 PM onwards</p>
           </div>
         </div>
@@ -205,30 +206,18 @@ export default function Home() {
 
       <section className="section" id="gallery">
         <h2>Pre-Shoot Memories</h2>
-        <p style={{ textAlign: "center", color: "var(--muted)" }}>
-          Replace these placeholders with your pre-shoot photos inside{" "}
-          <b>/public/photos</b>.
-        </p>
         <div className="gallery">
           <div className="photo">
-            Photo 01
-            <br />
-            /photos/preshoot-1.jpg
+            <img src="/photos/preshoot-1.png" alt="Pre-shoot memory 1" />
           </div>
           <div className="photo">
-            Photo 02
-            <br />
-            /photos/preshoot-2.jpg
+            <img src="/photos/preshoot-2.png" alt="Pre-shoot memory 2" />
           </div>
           <div className="photo">
-            Photo 03
-            <br />
-            /photos/preshoot-3.jpg
+            <img src="/photos/preshoot-3.png" alt="Pre-shoot memory 3" />
           </div>
           <div className="photo">
-            Photo 04
-            <br />
-            /photos/preshoot-4.jpg
+            <img src="/photos/preshoot-4.png" alt="Pre-shoot memory 4" />
           </div>
         </div>
       </section>
@@ -249,25 +238,49 @@ export default function Home() {
                   name="attending"
                   value="Yes"
                   required
+                  onChange={(e) => setAttending(e.target.value)}
+                  checked={attending === "Yes"}
                 />
                 <label htmlFor="yes" className="radio-label">
                   ✓ Attending
                 </label>
-                <input type="radio" id="no" name="attending" value="No" />
+                <input
+                  type="radio"
+                  id="no"
+                  name="attending"
+                  value="No"
+                  onChange={(e) => setAttending(e.target.value)}
+                  checked={attending === "No"}
+                />
                 <label htmlFor="no" className="radio-label">
                   ✗ Not Attending
                 </label>
               </div>
             </div>
 
-            <div className="form-group">
-              <label>Dietary Preference</label>
-              <select name="dietary" required>
-                <option value="">Select preference</option>
-                <option value="Veg">Vegetarian</option>
-                <option value="Non-Veg">Non-Vegetarian</option>
-              </select>
-            </div>
+            {attending === "Yes" && (
+              <>
+                <div className="form-group">
+                  <label>Number of Guests</label>
+                  <select name="guestCount" required>
+                    <option value="1">1 Person</option>
+                    <option value="2">2 People</option>
+                    <option value="3">3 People</option>
+                    <option value="4">4 People</option>
+                    <option value="5">5 People</option>
+                  </select>
+                </div>
+
+                <div className="form-group">
+                  <label>Dietary Preference</label>
+                  <select name="dietary" required>
+                    <option value="">Select preference</option>
+                    <option value="Veg">Vegetarian</option>
+                    <option value="Non-Veg">Non-Vegetarian</option>
+                  </select>
+                </div>
+              </>
+            )}
 
             <input
               name="name"

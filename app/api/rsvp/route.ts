@@ -9,10 +9,16 @@ export async function POST(request: Request) {
     const name = String(body.name || '').trim();
     const phone = String(body.phone || '').trim();
     const attending = String(body.attending || '').trim();
-    const guestCount = Number(body.guestCount || 0);
+    const dietary = String(body.dietary || '').trim();
     const message = String(body.message || '').trim();
 
-    if (!name || !phone || !attending || !guestCount) {
+    // Determine guest count: default to 1 if attending and not specified, 0 if not attending
+    let guestCount = 0;
+    if (attending === 'Yes') {
+      guestCount = Number(body.guestCount) || 1;
+    }
+
+    if (!name || !phone || !attending) {
       return NextResponse.json({ error: 'Missing required fields' }, { status: 400 });
     }
 
@@ -22,6 +28,7 @@ export async function POST(request: Request) {
       phone,
       attending,
       guestCount,
+      dietary,
       message,
       createdAt: new Date(),
     });

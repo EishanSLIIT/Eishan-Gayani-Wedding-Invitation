@@ -6,8 +6,8 @@ export async function POST(request: Request) {
     const { username, password } = await request.json();
     console.log('Login attempt:', { username, password });
     
-    const validUsername = 'admin';
-    const validPassword = 'admin123';
+    const validUsername = process.env.ADMIN_USERNAME || 'admin';
+    const validPassword = process.env.ADMIN_PASSWORD || 'admin123';
 
     if (username !== validUsername || password !== validPassword) {
       console.log('Invalid credentials. Expected:', { validUsername, validPassword });

@@ -315,15 +315,30 @@ h1 {
   gap: 16px;
 }
 .photo {
-  min-height: 270px;
+  position: relative;
+  min-height: 350px;
   border-radius: 24px;
-  background: linear-gradient(135deg, #d8c0a5, #eef0e6);
-  display: grid;
-  place-items: center;
-  color: rgba(59, 47, 42, 0.72);
-  padding: 20px;
-  text-align: center;
-  border: 1px dashed rgba(59, 47, 42, 0.24);
+  overflow: hidden;
+  border: 1px solid rgba(184, 137, 84, 0.2);
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.photo:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 10px 25px rgba(184, 137, 84, 0.2);
+}
+
+.photo img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+  transition: transform 0.5s ease;
+}
+
+.photo:hover img {
+  transform: scale(1.05);
 }
 /* Countdown Section */
 .countdown-section {
@@ -938,6 +953,8 @@ tr:last-child td {
   .timeline-item::before {
     display: none;
   }
+}
+
 /* Admin Login Page */
 .admin-login-page {
   min-height: 100vh;

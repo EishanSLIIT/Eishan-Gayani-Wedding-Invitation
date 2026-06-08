@@ -1,4 +1,8 @@
 import { MongoClient, Db } from 'mongodb';
+import dns from 'dns';
+
+// Fix Node.js DNS resolution issues (specifically ENOTFOUND on MongoDB SRV records)
+dns.setDefaultResultOrder('ipv4first');
 
 const uri = process.env.MONGODB_URI;
 
