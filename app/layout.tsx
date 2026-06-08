@@ -3,7 +3,7 @@ import type { Metadata } from 'next';
 
 export const metadata: Metadata = {
   title: 'Eishan & Gayani Wedding Invitation',
-  description: 'Wedding invitation for Eishan Dinuka and Gayani Chathurika',
+  description: 'Wedding invitation for Eishan & Gayani',
 };
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {

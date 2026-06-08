@@ -59,9 +59,7 @@ export default function Home() {
 
             <div className="invitation-content">
               <h1 className="invitation-title">
-                Eishan Dinuka
-                <br />&<br />
-                Gayani Chathurika
+                Eishan & Gayani
               </h1>
               <p className="invitation-subtitle">THE INVITATION</p>
             </div>
@@ -92,9 +90,7 @@ export default function Home() {
         <div className="hero-card">
           <p className="kicker">Together with their families</p>
           <h1>
-            Eishan Dinuka
-            <br />&<br />
-            Gayani Chathurika
+            Eishan & Gayani
           </h1>
           <p className="date">15 November 2026</p>
           <p>We warmly invite you to celebrate our wedding day with us.</p>
