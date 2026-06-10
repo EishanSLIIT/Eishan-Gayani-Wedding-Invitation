@@ -286,11 +286,12 @@ main { overflow: hidden; }
   text-align: center;
   width: 100%;
   pointer-events: none;
-  font-family: var(--accent-font);
-  font-size: clamp(38px, 8vw, 56px);
-  letter-spacing: 2px;
+  font-family: var(--couple-font), serif;
+  font-size: clamp(30px, 7vw, 44px);
+  letter-spacing: 8px;
   color: #5a4878;
-  font-weight: normal;
+  font-weight: 300;
+  text-transform: uppercase;
   transition: opacity 0.5s ease;
 }
 .envelope.open .envelope-closed-title { opacity: 0; }
