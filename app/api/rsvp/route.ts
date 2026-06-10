@@ -18,7 +18,7 @@ export async function POST(request: Request) {
       guestCount = Number(body.guestCount) || 1;
     }
 
-    if (!name || !phone || !attending) {
+    if (!name || !attending) {
       return NextResponse.json({ error: 'Missing required fields' }, { status: 400 });
     }
 

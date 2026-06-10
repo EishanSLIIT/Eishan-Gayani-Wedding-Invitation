@@ -254,8 +254,79 @@ export default function Home() {
           <div className="card detail-card">
             <div className="card-icon">🕐</div>
             <h3>Ceremony</h3>
-            <p>Evening</p>
-            <p className="highlight">6:00 PM onwards</p>
+            <p>Morning</p>
+            <p className="highlight">9:00 AM onwards</p>
+          </div>
+        </div>
+
+        <div className="venue-showcase card">
+          <div className="venue-header">
+            <h3>The Venue - Centauria Wild Udawalawe</h3>
+            <p className="venue-description">
+              Nestled adjacent to the famous Udawalawe National Park, Centauria Wild is a tropical paradise where luxury meets the raw beauty of nature. We can't wait to share the magic of this wilderness sanctuary with you.
+            </p>
+          </div>
+          
+          <div className="venue-gallery">
+            <div className="venue-photo-card">
+              <div className="venue-photo-wrapper">
+                <img src="/photos/venue-lawn.png" alt="Centauria Wild Lawn" />
+              </div>
+              <span className="photo-caption">Resort poolside garden & lawns</span>
+            </div>
+            <div className="venue-photo-card">
+              <div className="venue-photo-wrapper">
+                <img src="/photos/venue-hall.png" alt="Centauria Wild Reception Hall" />
+              </div>
+              <span className="photo-caption">Elegant reception ballroom</span>
+            </div>
+          </div>
+
+          <div className="venue-actions">
+            <a 
+              href="https://www.google.com/maps/search/?api=1&query=Centauria+Wild+Udawalawe" 
+              target="_blank" 
+              rel="noopener noreferrer" 
+              className="action-btn map-btn"
+            >
+              📍 Open in Google Maps
+            </a>
+            
+            <a 
+              href="https://calendar.google.com/calendar/render?action=TEMPLATE&text=Eishan+%26+Gayani%27s+Wedding&dates=20261115T033000Z/20261115T103000Z&details=We+warmly+invite+you+to+celebrate+our+special+wedding+day+with+us+at+Centauria+Wild%2C+Udawalawe.&location=Centauria+Wild%2C+Udawalawe&sf=true&output=xml" 
+              target="_blank" 
+              rel="noopener noreferrer" 
+              className="action-btn calendar-btn-google"
+            >
+              📅 Add to Google Calendar
+            </a>
+            
+            <button 
+              onClick={() => {
+                const icsContent = [
+                  "BEGIN:VCALENDAR",
+                  "VERSION:2.0",
+                  "BEGIN:VEVENT",
+                  "DTSTART:20261115T033000Z",
+                  "DTEND:20261115T103000Z",
+                  "SUMMARY:Eishan & Gayani's Wedding",
+                  "DESCRIPTION:Celebrate our wedding day with us at Centauria Wild, Udawalawe.",
+                  "LOCATION:Centauria Wild, Udawalawe",
+                  "END:VEVENT",
+                  "END:VCALENDAR"
+                ].join("\r\n");
+                const blob = new Blob([icsContent], { type: "text/calendar;charset=utf-8" });
+                const link = document.createElement("a");
+                link.href = URL.createObjectURL(blob);
+                link.download = "wedding-eishan-gayani.ics";
+                document.body.appendChild(link);
+                link.click();
+                document.body.removeChild(link);
+              }}
+              className="action-btn calendar-btn-ical"
+            >
+              🔔 Add to Apple / Outlook
+            </button>
           </div>
         </div>
       </section>
@@ -294,24 +365,38 @@ export default function Home() {
         <h2>Event Timeline</h2>
         <div className="timeline">
           <div className="timeline-item">
-            <div className="timeline-time">6:00 PM</div>
+            <div className="timeline-time">9:00 AM</div>
+            <div className="timeline-event">
+              <h4>Welcome Ceremony</h4>
+              <p>Traditional greetings & morning tea</p>
+            </div>
+          </div>
+          <div className="timeline-item">
+            <div className="timeline-time">10:00 AM</div>
             <div className="timeline-event">
               <h4>Poruwa Ceremony</h4>
-              <p>Traditional blessing ceremony</p>
+              <p>Traditional blessing rituals</p>
             </div>
           </div>
           <div className="timeline-item">
-            <div className="timeline-time">7:30 PM</div>
+            <div className="timeline-time">12:30 PM</div>
             <div className="timeline-event">
-              <h4>Reception</h4>
-              <p>Join us for dinner and celebration</p>
+              <h4>Grand Reception & Lunch</h4>
+              <p>Join us for celebration feast & toast</p>
             </div>
           </div>
           <div className="timeline-item">
-            <div className="timeline-time">10:00 PM</div>
+            <div className="timeline-time">2:30 PM</div>
             <div className="timeline-event">
-              <h4>Dance & Festivities</h4>
-              <p>Music and dancing with loved ones</p>
+              <h4>Cake Cutting & Music</h4>
+              <p>Dancing and fun memories</p>
+            </div>
+          </div>
+          <div className="timeline-item">
+            <div className="timeline-time">4:00 PM</div>
+            <div className="timeline-event">
+              <h4>Farewell</h4>
+              <p>Departure with blessings and love</p>
             </div>
           </div>
         </div>
@@ -322,18 +407,18 @@ export default function Home() {
         <div className="details parents">
           <div className="card">
             <h3>Groom's Parents</h3>
-            <p>
-              Mr. Jayasiri
+            <p className="parent-names">
+              Mr. Weerasinghe Hakmana Arachchige Jayasiri
               <br />
-              Mrs. Sandya
+              Mrs. Malagoda Pathirange Sandya
             </p>
           </div>
           <div className="card">
             <h3>Bride's Parents</h3>
-            <p>
-              Mr. Sample Name
+            <p className="parent-names">
+              Mr. [Bride's Father Name]
               <br />
-              Mrs. Sample Name
+              Mrs. [Bride's Mother Name]
             </p>
           </div>
         </div>
@@ -420,12 +505,6 @@ export default function Home() {
             <input
               name="name"
               placeholder="Your full name"
-              required
-              className="form-input"
-            />
-            <input
-              name="phone"
-              placeholder="Contact number"
               required
               className="form-input"
             />

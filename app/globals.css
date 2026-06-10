@@ -1,12 +1,13 @@
 :root {
-  --cream: #ffffff;
-  --gold: #d4af37;
-  --deep: #1a1a1a;
-  --green: #c9a961;
-  --muted: #666666;
-  --card: rgba(255, 255, 255, 0.95);
-  --lavender: #f5f0f0;
-  --lavender-dark: #e8dcc8;
+  --cream: #fcfbfa;
+  --gold: #c5a059;
+  --deep: #2d2c2a;
+  --green: #7d8c6b;
+  --muted: #6e6b64;
+  --card: rgba(255, 255, 255, 0.97);
+  --blush: #fbf6f1;
+  --lavender: #f1ecf7;
+  --lavender-dark: #e6dfd1;
 }
 
 * {
@@ -14,9 +15,10 @@
 }
 body {
   margin: 0;
-  background: linear-gradient(180deg, #ffffff 0%, #fafaf8 50%, #ffffff 100%);
+  background: radial-gradient(circle at top, #faf7f2 0%, #f6f2ea 50%, #eee8dd 100%);
   color: var(--deep);
   font-family: Georgia, "Times New Roman", serif;
+  line-height: 1.6;
 }
 main {
   overflow: hidden;
@@ -492,10 +494,19 @@ h1 {
 }
 .card {
   background: var(--card);
-  border: 1px solid rgba(184, 137, 84, 0.22);
+  border: 1px solid rgba(197, 160, 89, 0.25);
   border-radius: 24px;
-  padding: 28px;
-  box-shadow: 0 18px 45px rgba(59, 47, 42, 0.08);
+  padding: 34px 28px;
+  box-shadow: 0 18px 45px rgba(59, 47, 42, 0.05);
+  position: relative;
+}
+.card::after {
+  content: "";
+  position: absolute;
+  inset: 8px;
+  border: 1px dashed rgba(197, 160, 89, 0.2);
+  border-radius: 18px;
+  pointer-events: none;
 }
 .card h3 {
   margin-top: 0;
@@ -546,56 +557,71 @@ h1 {
   padding: 80px 20px;
   background: linear-gradient(
     135deg,
-    rgba(184, 137, 84, 0.08),
-    rgba(97, 114, 87, 0.08)
+    rgba(197, 160, 89, 0.08),
+    rgba(125, 140, 107, 0.08)
   );
   text-align: center;
 }
 
 .countdown-title {
-  font-size: 20px;
+  font-size: 16px;
   color: var(--muted);
   text-transform: uppercase;
-  letter-spacing: 2px;
+  letter-spacing: 3px;
   font-family: Arial, sans-serif;
-  margin-bottom: 40px;
+  margin-bottom: 35px;
 }
 
 .countdown {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(100px, 1fr));
-  gap: 20px;
+  grid-template-columns: repeat(auto-fit, minmax(110px, 1fr));
+  gap: 25px;
   max-width: 600px;
   margin: 0 auto;
 }
 
 .countdown-item {
   background: var(--card);
-  border: 1px solid rgba(184, 137, 84, 0.3);
-  border-radius: 20px;
-  padding: 30px 20px;
-  box-shadow: 0 10px 30px rgba(59, 47, 42, 0.08);
-  transition: transform 0.3s ease;
+  border: 1px solid rgba(197, 160, 89, 0.3);
+  border-radius: 50%;
+  aspect-ratio: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 10px 25px rgba(59, 47, 42, 0.04);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  padding: 10px;
+  position: relative;
+}
+
+.countdown-item::before {
+  content: "";
+  position: absolute;
+  inset: 5px;
+  border: 1px dashed rgba(197, 160, 89, 0.25);
+  border-radius: 50%;
+  pointer-events: none;
 }
 
 .countdown-item:hover {
-  transform: translateY(-5px);
-  box-shadow: 0 15px 40px rgba(59, 47, 42, 0.12);
+  transform: translateY(-5px) scale(1.02);
+  box-shadow: 0 18px 40px rgba(197, 160, 89, 0.15);
 }
 
 .countdown-value {
-  font-size: clamp(36px, 8vw, 56px);
-  font-weight: bold;
+  font-size: clamp(28px, 6vw, 42px);
+  font-weight: 300;
   color: var(--gold);
   line-height: 1;
 }
 
 .countdown-label {
-  font-size: 14px;
+  font-size: 11px;
   color: var(--muted);
   text-transform: uppercase;
-  letter-spacing: 1px;
-  margin-top: 12px;
+  letter-spacing: 1.5px;
+  margin-top: 6px;
   font-family: Arial, sans-serif;
 }
 
@@ -1669,6 +1695,141 @@ tr:last-child td {
     width: 150px;
     height: 150px;
   }
+}
+
+/* Venue Showcase Styling */
+.venue-showcase {
+  margin-top: 50px;
+  text-align: center;
+}
+.venue-header {
+  margin-bottom: 30px;
+}
+.venue-header h3 {
+  font-size: 22px;
+  color: var(--gold);
+  font-weight: 400;
+  margin-bottom: 15px;
+}
+.venue-description {
+  color: var(--muted);
+  max-width: 650px;
+  margin: 0 auto;
+  font-size: 15px;
+  line-height: 1.7;
+}
+.venue-gallery {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 24px;
+  margin: 35px 0;
+}
+.venue-photo-card {
+  background: white;
+  padding: 12px;
+  border-radius: 16px;
+  border: 1px solid rgba(197, 160, 89, 0.2);
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.04);
+  transition: transform 0.3s ease;
+  position: relative;
+}
+.venue-photo-card::after {
+  content: "";
+  position: absolute;
+  inset: 4px;
+  border: 1px dashed rgba(197, 160, 89, 0.15);
+  border-radius: 12px;
+  pointer-events: none;
+}
+.venue-photo-card:hover {
+  transform: translateY(-5px);
+}
+.venue-photo-wrapper {
+  aspect-ratio: 16/10;
+  overflow: hidden;
+  border-radius: 10px;
+  margin-bottom: 12px;
+}
+.venue-photo-wrapper img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+  transition: transform 0.6s ease;
+}
+.venue-photo-card:hover .venue-photo-wrapper img {
+  transform: scale(1.05);
+}
+.photo-caption {
+  font-family: inherit;
+  font-size: 13px;
+  font-style: italic;
+  color: var(--muted);
+  letter-spacing: 0.5px;
+}
+.venue-actions {
+  display: flex;
+  justify-content: center;
+  gap: 15px;
+  flex-wrap: wrap;
+  margin-top: 25px;
+  position: relative;
+  z-index: 5;
+}
+.action-btn {
+  text-decoration: none;
+  padding: 12px 24px;
+  font-size: 11px;
+  font-family: Arial, sans-serif;
+  font-weight: 600;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  border-radius: 30px;
+  border: none;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+.map-btn {
+  background: white;
+  color: var(--green);
+  border: 1.5px solid var(--green);
+}
+.map-btn:hover {
+  background: var(--green);
+  color: white;
+  box-shadow: 0 6px 20px rgba(125, 140, 107, 0.25);
+  transform: translateY(-2px);
+}
+.calendar-btn-google {
+  background: var(--gold);
+  color: white;
+  border: 1.5px solid var(--gold);
+}
+.calendar-btn-google:hover {
+  background: #b08d4b;
+  border-color: #b08d4b;
+  box-shadow: 0 6px 20px rgba(197, 160, 89, 0.3);
+  transform: translateY(-2px);
+}
+.calendar-btn-ical {
+  background: white;
+  color: var(--gold);
+  border: 1.5px solid var(--gold);
+}
+.calendar-btn-ical:hover {
+  background: var(--gold);
+  color: white;
+  box-shadow: 0 6px 20px rgba(197, 160, 89, 0.25);
+  transform: translateY(-2px);
+}
+
+.parent-names {
+  line-height: 1.8;
+  font-size: 15px;
 }
 
 /* Mobile Responsiveness for Small Screens (< 500px) */

@@ -294,7 +294,7 @@ export default function AdminPage() {
                 }
               >
                 <td>{rsvp.name}</td>
-                <td>{rsvp.phone}</td>
+                <td>{rsvp.phone || "-"}</td>
                 <td>
                   <span
                     className={`status-badge ${rsvp.attending === "Yes" ? "status-yes" : "status-no"}`}
