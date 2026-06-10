@@ -51,6 +51,73 @@ function SealStampSvg() {
   );
 }
 
+// Custom Calendar SVG Icon
+function CalendarIconSvg() {
+  return (
+    <svg viewBox="0 0 100 100" className="card-icon-svg" xmlns="http://www.w3.org/2000/svg">
+      <rect x="22" y="26" width="56" height="52" rx="8" stroke="url(#goldGradientIcon)" strokeWidth="3" fill="none" />
+      <line x1="22" y1="42" x2="78" y2="42" stroke="url(#goldGradientIcon)" strokeWidth="3" />
+      <circle cx="36" cy="34" r="3" fill="url(#goldGradientIcon)" />
+      <circle cx="50" cy="34" r="3" fill="url(#goldGradientIcon)" />
+      <circle cx="64" cy="34" r="3" fill="url(#goldGradientIcon)" />
+      <path d="M35 18 C35 26, 37 28, 37 26" stroke="url(#goldGradientIcon)" strokeWidth="3" strokeLinecap="round" fill="none" />
+      <path d="M65 18 C65 26, 67 28, 67 26" stroke="url(#goldGradientIcon)" strokeWidth="3" strokeLinecap="round" fill="none" />
+      {/* Delicate heart in calendar center */}
+      <path d="M50 69 C48 66, 41 62, 41 56 C41 52, 44 49, 48 49 C50 49, 51 50, 52 51 C53 50, 54 49, 56 49 C60 49, 63 52, 63 56 C63 62, 56 66, 54 69 L50 69 Z" fill="url(#goldGradientIcon)" />
+      <defs>
+        <linearGradient id="goldGradientIcon" x1="0%" y1="0%" x2="100%" y2="100%">
+          <stop offset="0%" stopColor="#b88954" />
+          <stop offset="50%" stopColor="#dfba73" />
+          <stop offset="100%" stopColor="#b88954" />
+        </linearGradient>
+      </defs>
+    </svg>
+  );
+}
+
+// Custom Location Pin SVG Icon
+function LocationIconSvg() {
+  return (
+    <svg viewBox="0 0 100 100" className="card-icon-svg" xmlns="http://www.w3.org/2000/svg">
+      <path d="M50 82 C45 74, 30 56, 30 42 C30 29, 39 20, 50 20 C61 20, 70 29, 70 42 C70 56, 55 74, 50 82 Z" stroke="url(#goldGradientPin)" strokeWidth="3" fill="none" strokeLinejoin="round" />
+      <circle cx="50" cy="42" r="7" stroke="url(#goldGradientPin)" strokeWidth="2.5" fill="none" />
+      <ellipse cx="50" cy="85" rx="14" ry="4" stroke="url(#goldGradientPin)" strokeWidth="1.5" fill="none" opacity="0.6" />
+      <defs>
+        <linearGradient id="goldGradientPin" x1="0%" y1="0%" x2="100%" y2="100%">
+          <stop offset="0%" stopColor="#b88954" />
+          <stop offset="50%" stopColor="#dfba73" />
+          <stop offset="100%" stopColor="#b88954" />
+        </linearGradient>
+      </defs>
+    </svg>
+  );
+}
+
+// Custom Clock/Time SVG Icon
+function ClockIconSvg() {
+  return (
+    <svg viewBox="0 0 100 100" className="card-icon-svg" xmlns="http://www.w3.org/2000/svg">
+      <circle cx="50" cy="50" r="30" stroke="url(#goldGradientClock)" strokeWidth="3" fill="none" />
+      {/* Roman/line markers at 12, 3, 6, 9 */}
+      <line x1="50" y1="23" x2="50" y2="28" stroke="url(#goldGradientClock)" strokeWidth="2" />
+      <line x1="50" y1="77" x2="50" y2="72" stroke="url(#goldGradientClock)" strokeWidth="2" />
+      <line x1="23" y1="50" x2="28" y2="50" stroke="url(#goldGradientClock)" strokeWidth="2" />
+      <line x1="77" y1="50" x2="72" y2="50" stroke="url(#goldGradientClock)" strokeWidth="2" />
+      {/* Clock Hands indicating 9:00 */}
+      <line x1="50" y1="50" x2="50" y2="34" stroke="url(#goldGradientClock)" strokeWidth="3" strokeLinecap="round" />
+      <line x1="50" y1="50" x2="36" y2="50" stroke="url(#goldGradientClock)" strokeWidth="3" strokeLinecap="round" />
+      <circle cx="50" cy="50" r="4" fill="url(#goldGradientClock)" />
+      <defs>
+        <linearGradient id="goldGradientClock" x1="0%" y1="0%" x2="100%" y2="100%">
+          <stop offset="0%" stopColor="#b88954" />
+          <stop offset="50%" stopColor="#dfba73" />
+          <stop offset="100%" stopColor="#b88954" />
+        </linearGradient>
+      </defs>
+    </svg>
+  );
+}
+
 export default function Home() {
   const [sealBroken, setSealBroken] = useState(false);
   const [envelopeState, setEnvelopeState] = useState<'closed' | 'opening' | 'revealed'>('closed');
@@ -263,7 +330,7 @@ export default function Home() {
             className="card detail-card date-card-interactive"
             title="Tap to add to Google Calendar"
           >
-            <div className="card-icon">📅</div>
+            <div className="card-icon"><CalendarIconSvg /></div>
             <h3>Date</h3>
             <p>Sunday</p>
             <p className="highlight">15 November 2026</p>
@@ -277,7 +344,7 @@ export default function Home() {
           >
             <div className="flip-card-inner">
               <div className="flip-card-front">
-                <div className="card-icon">📍</div>
+                <div className="card-icon"><LocationIconSvg /></div>
                 <h3>Venue</h3>
                 <p>Centauria Wild</p>
                 <p className="highlight">Udawalawe</p>
@@ -295,14 +362,18 @@ export default function Home() {
                     rel="noopener noreferrer"
                     className="location-view-map-btn"
                     onClick={(e) => {
-                      e.stopPropagation();
+                       e.stopPropagation();
                     }}
                   >
                     View Map
                   </a>
                 </div>
                 <div className="location-badge">
-                  📍 Centauria Wild
+                  <svg viewBox="0 0 100 100" style={{ width: '12px', height: '12px', marginRight: '6px', verticalAlign: 'middle', display: 'inline-block' }} xmlns="http://www.w3.org/2000/svg">
+                    <path d="M50 82 C45 74, 30 56, 30 42 C30 29, 39 20, 50 20 C61 20, 70 29, 70 42 C70 56, 55 74, 50 82 Z" stroke="currentColor" strokeWidth="6" fill="none" />
+                    <circle cx="50" cy="42" r="6" fill="currentColor" />
+                  </svg>
+                  Centauria Wild
                 </div>
               </div>
             </div>
@@ -315,14 +386,13 @@ export default function Home() {
             className="card detail-card ceremony-card-interactive"
             title="Tap to add to Google Calendar"
           >
-            <div className="card-icon">🕐</div>
+            <div className="card-icon"><ClockIconSvg /></div>
             <h3>Ceremony</h3>
             <p>Morning</p>
             <p className="highlight">9:00 AM onwards</p>
             <span className="card-tap-hint">Tap to Add Event</span>
           </a>
         </div>
-
       </section>
 
       <section className="countdown-section">
@@ -418,23 +488,36 @@ export default function Home() {
         </div>
       </section>
 
-      <section className="section" id="gallery">
-        <h2>Pre-Shoot Memories</h2>
-        <div className="gallery">
-          <div className="photo">
-            <img src="/photos/preshoot-1.png" alt="Pre-shoot memory 1" />
+      <div className="gallery-section-wrapper">
+        <LavenderTwig className="gallery-bg-decor left-branch" />
+        <LavenderTwig className="gallery-bg-decor right-branch" />
+        <section className="section" id="gallery">
+          <div className="gallery-header">
+            <span className="gallery-kicker">M O M E N T S</span>
+            <div className="gallery-divider" />
           </div>
-          <div className="photo">
-            <img src="/photos/preshoot-2.png" alt="Pre-shoot memory 2" />
+          <div className="gallery">
+            <div className="photo">
+              <img src="/photos/preshoot-1.png" alt="Pre-shoot memory 1" />
+            </div>
+            <div className="photo">
+              <img src="/photos/preshoot-2.png" alt="Pre-shoot memory 2" />
+            </div>
+            <div className="photo">
+              <img src="/photos/preshoot-3.png" alt="Pre-shoot memory 3" />
+            </div>
+            <div className="photo">
+              <img src="/photos/preshoot-4.png" alt="Pre-shoot memory 4" />
+            </div>
+            <div className="photo">
+              <img src="/photos/preshoot-5.png" alt="Pre-shoot memory 5" />
+            </div>
+            <div className="photo">
+              <img src="/photos/preshoot-6.png" alt="Pre-shoot memory 6" />
+            </div>
           </div>
-          <div className="photo">
-            <img src="/photos/preshoot-3.png" alt="Pre-shoot memory 3" />
-          </div>
-          <div className="photo">
-            <img src="/photos/preshoot-4.png" alt="Pre-shoot memory 4" />
-          </div>
-        </div>
-      </section>
+        </section>
+      </div>
 
       <section className="section rsvp" id="rsvp">
         <h2>RSVP</h2>
