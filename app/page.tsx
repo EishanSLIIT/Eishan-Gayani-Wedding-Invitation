@@ -161,6 +161,9 @@ export default function Home() {
   // New states
   const [pageLoaded, setPageLoaded] = useState(false);
   const [navScrolled, setNavScrolled] = useState(false);
+  const [navVisible, setNavVisible] = useState(true);
+  const [expandedEvents, setExpandedEvents] = useState<Record<number, boolean>>({});
+  const lastScrollY = useRef(0);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [activeSection, setActiveSection] = useState("home");
   const [lightboxOpen, setLightboxOpen] = useState(false);
@@ -202,11 +205,26 @@ export default function Home() {
     return () => clearInterval(tick);
   }, []);
 
-  // ── Scroll → glass nav ──
+  // ── Scroll → glass nav & auto-hide/show ──
   useEffect(() => {
-    const onScroll = () => setNavScrolled(window.scrollY > 60);
-    window.addEventListener("scroll", onScroll, { passive: true });
-    return () => window.removeEventListener("scroll", onScroll);
+    const handleScroll = () => {
+      const currentScrollY = window.scrollY;
+      setNavScrolled(currentScrollY > 60);
+      
+      if (currentScrollY < 50) {
+        setNavVisible(true);
+      } else if (currentScrollY > lastScrollY.current) {
+        // Scrolling down -> hide menu
+        setNavVisible(false);
+      } else {
+        // Scrolling up -> show menu
+        setNavVisible(true);
+      }
+      lastScrollY.current = currentScrollY;
+    };
+    
+    window.addEventListener("scroll", handleScroll, { passive: true });
+    return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
   // ── Close mobile menu on scroll ──
@@ -291,6 +309,13 @@ export default function Home() {
     setLightboxImage(src);
     setLightboxAlt(alt);
     setLightboxOpen(true);
+  };
+
+  const toggleEvent = (index: number) => {
+    setExpandedEvents(prev => ({
+      ...prev,
+      [index]: !prev[index]
+    }));
   };
 
   async function submitRSVP(event: React.FormEvent<HTMLFormElement>) {
@@ -417,7 +442,7 @@ export default function Home() {
       </a>
 
       {/* ── Navigation ── */}
-      <nav className={`nav ${navScrolled ? "scrolled" : ""}`} id="main-nav">
+      <nav className={`nav ${navScrolled ? "scrolled" : ""} ${(!navVisible && !mobileMenuOpen) ? "nav-hidden" : ""}`} id="main-nav">
         <div className="nav-inner">
           {navLinks.map(link => (
             <a
@@ -617,10 +642,31 @@ export default function Home() {
               <div className="timeline-marker">
                 <span className="timeline-icon" role="img" aria-label={event.title}>{event.icon}</span>
               </div>
-              <div className="timeline-card">
+              <div
+                className="timeline-card"
+                onClick={() => toggleEvent(i)}
+                role="button"
+                tabIndex={0}
+                onKeyDown={e => {
+                  if (e.key === "Enter" || e.key === " ") {
+                    e.preventDefault();
+                    toggleEvent(i);
+                  }
+                }}
+                style={{ cursor: "pointer" }}
+              >
                 <span className="timeline-time">{event.time}</span>
-                <h4 className="timeline-title">{event.title}</h4>
-                <p className="timeline-desc">{event.desc}</p>
+                <h4 className="timeline-title" style={{ display: "flex", alignItems: "center", justifyContent: "space-between", gap: "8px" }}>
+                  <span>{event.title}</span>
+                  <span className={`timeline-chevron ${expandedEvents[i] ? "expanded" : ""}`}>
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" style={{ width: 14, height: 14, transition: "transform 0.3s" }}>
+                      <path d="M6 9l6 6 6-6" />
+                    </svg>
+                  </span>
+                </h4>
+                <div className={`timeline-desc-wrapper ${expandedEvents[i] ? "expanded" : ""}`}>
+                  <p className="timeline-desc">{event.desc}</p>
+                </div>
               </div>
             </div>
           ))}
