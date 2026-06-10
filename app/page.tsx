@@ -254,7 +254,7 @@ export default function Home() {
                 </svg>
                 <h2 className="letter-title">Eishan & Gayani</h2>
                 <p className="letter-subtitle">Save the Date</p>
-                <p className="letter-date">15 November 2026</p>
+                <p className="letter-date">15th November 2026</p>
                 <button className="letter-enter-btn" onClick={handleRevealInvitation}>
                   Open Invitation
                 </button>
@@ -317,7 +317,7 @@ export default function Home() {
           <h1>
             Eishan & Gayani
           </h1>
-          <p className="date">15 November 2026</p>
+          <p className="date">15th November 2026</p>
           <p>We warmly invite you to celebrate our wedding day with us.</p>
         </div>
       </section>
@@ -335,14 +335,14 @@ export default function Home() {
                 <div className="card-icon"><CalendarIconSvg /></div>
                 <h3>Date</h3>
                 <p>Sunday</p>
-                <p className="highlight">15 November 2026</p>
+                <p className="highlight">15th November 2026</p>
                 <span className="card-tap-hint">Tap for Details</span>
               </div>
               
               <div className="flip-card-back">
                 <div className="location-details-overlay">
                   <span className="location-kicker">— The Date —</span>
-                  <h4 className="location-title">15 Nov 2026</h4>
+                  <h4 className="location-title">15th Nov 2026</h4>
                   <p className="location-address">Sunday • 9:00 AM onwards</p>
                   <a 
                     href="https://calendar.google.com/calendar/render?action=TEMPLATE&text=Eishan+%26+Gayani%27s+Wedding&dates=20261115T033000Z/20261115T103000Z&details=We+warmly+invite+you+to+celebrate+our+special+wedding+day+with+us+at+Centauria+Wild%2C+Udawalawe.&location=Centauria+Wild%2C+Udawalawe&sf=true&output=xml"
@@ -361,7 +361,7 @@ export default function Home() {
                     <rect x="22" y="26" width="56" height="52" rx="8" stroke="currentColor" strokeWidth="6" fill="none" />
                     <line x1="22" y1="42" x2="78" y2="42" stroke="currentColor" strokeWidth="6" />
                   </svg>
-                  15 Nov 2026
+                  15th Nov 2026
                 </div>
               </div>
             </div>
@@ -488,38 +488,67 @@ export default function Home() {
         <h2>Event Timeline</h2>
         <div className="timeline">
           <div className="timeline-item">
-            <div className="timeline-time">9:00 AM</div>
-            <div className="timeline-event">
-              <h4>Welcome Ceremony</h4>
-              <p>Traditional greetings & morning tea</p>
+            <div className="timeline-marker" />
+            <div className="timeline-card">
+              <span className="timeline-time">8:30 AM</span>
+              <h4 className="timeline-title">Welcome Ceremony</h4>
+              <p className="timeline-desc">Greeting our guests with traditional betel leaves and warm hospitality.</p>
             </div>
           </div>
           <div className="timeline-item">
-            <div className="timeline-time">10:00 AM</div>
-            <div className="timeline-event">
-              <h4>Poruwa Ceremony</h4>
-              <p>Traditional blessing rituals</p>
+            <div className="timeline-marker" />
+            <div className="timeline-card">
+              <span className="timeline-time">9:00 AM</span>
+              <h4 className="timeline-title">Morning Breakfast</h4>
+              <p className="timeline-desc">Serving traditional Sri Lankan breakfast and delicious wedding sweetmeats.</p>
             </div>
           </div>
           <div className="timeline-item">
-            <div className="timeline-time">12:30 PM</div>
-            <div className="timeline-event">
-              <h4>Grand Reception & Lunch</h4>
-              <p>Join us for celebration feast & toast</p>
+            <div className="timeline-marker" />
+            <div className="timeline-card">
+              <span className="timeline-time">9:45 AM</span>
+              <h4 className="timeline-title">Poruwa Ceremony</h4>
+              <p className="timeline-desc">Sacred marriage rituals on the Poruwa, exchange of rings, and traditional blessings.</p>
             </div>
           </div>
           <div className="timeline-item">
-            <div className="timeline-time">2:30 PM</div>
-            <div className="timeline-event">
-              <h4>Cake Cutting & Music</h4>
-              <p>Dancing and fun memories</p>
+            <div className="timeline-marker" />
+            <div className="timeline-card">
+              <span className="timeline-time">11:00 AM</span>
+              <h4 className="timeline-title">Photo Session</h4>
+              <p className="timeline-desc">Capturing beautiful portraits and memories with family and friends.</p>
             </div>
           </div>
           <div className="timeline-item">
-            <div className="timeline-time">4:00 PM</div>
-            <div className="timeline-event">
-              <h4>Farewell</h4>
-              <p>Departure with blessings and love</p>
+            <div className="timeline-marker" />
+            <div className="timeline-card">
+              <span className="timeline-time">11:45 AM</span>
+              <h4 className="timeline-title">Reception</h4>
+              <p className="timeline-desc">Welcoming the newly married couple into the grand reception hall.</p>
+            </div>
+          </div>
+          <div className="timeline-item">
+            <div className="timeline-marker" />
+            <div className="timeline-card">
+              <span className="timeline-time">12:30 PM</span>
+              <h4 className="timeline-title">Lunch</h4>
+              <p className="timeline-desc">A festive wedding lunch buffet and toasts to celebrate the union.</p>
+            </div>
+          </div>
+          <div className="timeline-item">
+            <div className="timeline-marker" />
+            <div className="timeline-card">
+              <span className="timeline-time">2:30 PM</span>
+              <h4 className="timeline-title">Going Away Photo Shoot</h4>
+              <p className="timeline-desc">Capturing the couple's second attire and portrait sessions.</p>
+            </div>
+          </div>
+          <div className="timeline-item">
+            <div className="timeline-marker" />
+            <div className="timeline-card">
+              <span className="timeline-time">3:30 PM</span>
+              <h4 className="timeline-title">Going Away</h4>
+              <p className="timeline-desc">The newly wedded couple departs with blessings and love.</p>
             </div>
           </div>
         </div>
@@ -528,16 +557,18 @@ export default function Home() {
       <section className="section">
         <h2>Family Blessings</h2>
         <div className="details parents">
-          <div className="card">
+          <div className="card family-card">
             <h3>Groom's Parents</h3>
+            <div className="card-divider-gold" />
             <p className="parent-names">
               Mr. Weerasinghe Hakmana Arachchige Jayasiri
               <br />
               Mrs. Malagoda Pathirange Sandya
             </p>
           </div>
-          <div className="card">
+          <div className="card family-card">
             <h3>Bride's Parents</h3>
+            <div className="card-divider-gold" />
             <p className="parent-names">
               Mr. [Bride's Father Name]
               <br />
