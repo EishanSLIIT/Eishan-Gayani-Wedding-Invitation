@@ -239,24 +239,47 @@ export default function Home() {
       <section className="section" id="details">
         <h2>Wedding Details</h2>
         <div className="details">
-          <div className="card detail-card">
+          <a 
+            href="https://calendar.google.com/calendar/render?action=TEMPLATE&text=Eishan+%26+Gayani%27s+Wedding&dates=20261115T033000Z/20261115T103000Z&details=We+warmly+invite+you+to+celebrate+our+special+wedding+day+with+us+at+Centauria+Wild%2C+Udawalawe.&location=Centauria+Wild%2C+Udawalawe&sf=true&output=xml"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="card detail-card date-card-interactive"
+            title="Tap to add to Google Calendar"
+          >
             <div className="card-icon">📅</div>
             <h3>Date</h3>
             <p>Sunday</p>
             <p className="highlight">15 November 2026</p>
-          </div>
-          <div className="card detail-card">
+            <span className="card-tap-hint">Tap to Add Event</span>
+          </a>
+
+          <a 
+            href="https://www.google.com/maps/search/?api=1&query=Centauria+Wild+Udawalawe"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="card detail-card venue-card-interactive"
+            title="Tap to open in Google Maps"
+          >
             <div className="card-icon">📍</div>
             <h3>Venue</h3>
             <p>Centauria Wild</p>
             <p className="highlight">Udawalawe</p>
-          </div>
-          <div className="card detail-card">
+            <span className="card-tap-hint">Tap to Open Maps</span>
+          </a>
+
+          <a 
+            href="https://calendar.google.com/calendar/render?action=TEMPLATE&text=Eishan+%26+Gayani%27s+Wedding&dates=20261115T033000Z/20261115T103000Z&details=We+warmly+invite+you+to+celebrate+our+special+wedding+day+with+us+at+Centauria+Wild%2C+Udawalawe.&location=Centauria+Wild%2C+Udawalawe&sf=true&output=xml"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="card detail-card ceremony-card-interactive"
+            title="Tap to add to Google Calendar"
+          >
             <div className="card-icon">🕐</div>
             <h3>Ceremony</h3>
             <p>Morning</p>
             <p className="highlight">9:00 AM onwards</p>
-          </div>
+            <span className="card-tap-hint">Tap to Add Event</span>
+          </a>
         </div>
 
         <div className="venue-showcase card">
