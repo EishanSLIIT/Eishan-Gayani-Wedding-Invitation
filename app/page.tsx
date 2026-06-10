@@ -1,8 +1,62 @@
 "use client";
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
+
+// Lavender Twig SVG Decoration Component
+function LavenderTwig({ className }: { className?: string }) {
+  return (
+    <svg className={className} viewBox="0 0 120 240" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <path d="M60 220 C50 160, 55 100, 65 30" stroke="#7d8c6b" strokeWidth="2.5" strokeLinecap="round" />
+      {/* Top Buds */}
+      <path d="M65 30 Q60 25 65 20 Q70 25 65 30 Z" fill="#9073b3" />
+      <path d="M65 20 Q60 15 65 10 Q70 15 65 20 Z" fill="#a38fc2" />
+      {/* Cluster 1 */}
+      <path d="M63 50 Q50 45 55 38 Q63 42 63 50 Z" fill="#7b5b9e" />
+      <path d="M66 52 Q79 47 74 40 Q66 44 66 52 Z" fill="#9a83c2" />
+      <path d="M64 45 Q58 40 64 35 Q70 40 64 45 Z" fill="#a895cf" />
+      {/* Cluster 2 */}
+      <path d="M61 80 Q45 75 51 66 Q61 70 61 80 Z" fill="#7b5b9e" />
+      <path d="M67 82 Q83 77 77 68 Q67 72 67 82 Z" fill="#9073b3" />
+      <path d="M64 72 Q56 65 64 58 Q72 65 64 72 Z" fill="#b19cd9" />
+      {/* Cluster 3 */}
+      <path d="M59 110 Q42 105 48 96 Q59 100 59 110 Z" fill="#6a4d8c" />
+      <path d="M69 112 Q86 107 80 98 Q69 102 69 112 Z" fill="#886fa8" />
+      <path d="M64 102 Q55 95 64 88 Q73 95 64 102 Z" fill="#a895cf" />
+      {/* Cluster 4 */}
+      <path d="M57 140 Q40 135 46 126 Q57 130 57 140 Z" fill="#7b5b9e" />
+      <path d="M71 142 Q88 137 82 128 Q71 132 71 142 Z" fill="#9073b3" />
+      <path d="M64 132 Q54 125 64 118 Q74 125 64 132 Z" fill="#b19cd9" />
+      {/* Leaves */}
+      <path d="M56 160 Q35 155 45 145 Q53 150 56 160 Z" fill="#7d8c6b" />
+      <path d="M72 175 Q93 170 83 160 Q75 165 72 175 Z" fill="#7d8c6b" />
+      <path d="M54 190 Q30 185 42 175 Q50 180 54 190 Z" fill="#7d8c6b" />
+    </svg>
+  );
+}
+
+// Wax Seal Stamp SVG Component
+function SealStampSvg() {
+  return (
+    <svg viewBox="0 0 100 100" className="seal-svg-stamp" xmlns="http://www.w3.org/2000/svg">
+      <path d="M50 82 C45 60, 48 40, 52 18" stroke="rgba(255, 255, 255, 0.7)" strokeWidth="2.5" strokeLinecap="round" fill="none" />
+      <circle cx="52" cy="18" r="3.5" fill="rgba(255, 255, 255, 0.7)" />
+      <circle cx="47" cy="28" r="4.5" fill="rgba(255, 255, 255, 0.7)" />
+      <circle cx="56" cy="30" r="4.5" fill="rgba(255, 255, 255, 0.7)" />
+      <circle cx="46" cy="42" r="5" fill="rgba(255, 255, 255, 0.7)" />
+      <circle cx="57" cy="44" r="5" fill="rgba(255, 255, 255, 0.7)" />
+      <circle cx="45" cy="56" r="5" fill="rgba(255, 255, 255, 0.7)" />
+      <circle cx="59" cy="58" r="5" fill="rgba(255, 255, 255, 0.7)" />
+      <path d="M47 67 Q36 62 46 54" stroke="rgba(255, 255, 255, 0.7)" strokeWidth="2" strokeLinecap="round" fill="none" />
+      <path d="M57 74 Q68 69 57 61" stroke="rgba(255, 255, 255, 0.7)" strokeWidth="2" strokeLinecap="round" fill="none" />
+    </svg>
+  );
+}
 
 export default function Home() {
   const [sealBroken, setSealBroken] = useState(false);
+  const [envelopeState, setEnvelopeState] = useState<'closed' | 'opening' | 'revealed'>('closed');
+  const [audioPlaying, setAudioPlaying] = useState(false);
+  const [isFadingOut, setIsFadingOut] = useState(false);
+  const audioRef = useRef<HTMLAudioElement>(null);
   const [status, setStatus] = useState("");
   const [attending, setAttending] = useState<string>("");
   const [countdown, setCountdown] = useState({
@@ -33,8 +87,9 @@ export default function Home() {
 
   async function submitRSVP(event: React.FormEvent<HTMLFormElement>) {
     event.preventDefault();
+    const formElement = event.currentTarget;
     setStatus("Saving...");
-    const form = new FormData(event.currentTarget);
+    const form = new FormData(formElement);
     const payload = Object.fromEntries(form.entries());
     const res = await fetch("/api/rsvp", {
       method: "POST",
@@ -43,40 +98,124 @@ export default function Home() {
     });
     if (res.ok) {
       setStatus("Thank you! Your RSVP has been recorded.");
-      event.currentTarget.reset();
+      formElement.reset();
+      // Reset attending state to close conditional UI fields
+      setAttending("");
     } else {
       setStatus("Could not save RSVP. Please try again.");
     }
   }
 
+  const handleOpenEnvelope = () => {
+    if (audioRef.current && !audioPlaying) {
+      audioRef.current.play().then(() => {
+        setAudioPlaying(true);
+      }).catch(err => console.log("Audio play blocked:", err));
+    }
+    setEnvelopeState('opening');
+    setTimeout(() => {
+      setEnvelopeState('revealed');
+    }, 1200);
+  };
+
+  const handleRevealInvitation = () => {
+    setIsFadingOut(true);
+    setTimeout(() => {
+      setSealBroken(true);
+    }, 1000);
+  };
+
+  const toggleAudio = () => {
+    if (!audioRef.current) return;
+    if (audioPlaying) {
+      audioRef.current.pause();
+      setAudioPlaying(false);
+    } else {
+      audioRef.current.play().then(() => {
+        setAudioPlaying(true);
+      }).catch(err => console.log("Audio play blocked:", err));
+    }
+  };
+
   return (
     <main>
+      {/* Background Audio */}
+      <audio ref={audioRef} src="/music/wedding.mp3" loop />
+
       {!sealBroken && (
-        <div className="invitation-overlay">
-          <div className="invitation-card">
-            <div className="invitation-flowers flowers-top-left"></div>
-            <div className="invitation-flowers flowers-top-right"></div>
+        <div className={`invitation-overlay ${isFadingOut ? 'fade-out' : ''}`}>
+          {/* Floating decorative lavenders in corners */}
+          <LavenderTwig className="envelope-bg-decoration top-left" />
+          <LavenderTwig className="envelope-bg-decoration top-right" />
+          <LavenderTwig className="envelope-bg-decoration bottom-left" />
+          <LavenderTwig className="envelope-bg-decoration bottom-right" />
 
-            <div className="invitation-content">
-              <h1 className="invitation-title">
-                Eishan & Gayani
-              </h1>
-              <p className="invitation-subtitle">THE INVITATION</p>
-            </div>
+          <div className="envelope-wrapper">
+            <div className={`envelope ${envelopeState === 'opening' || envelopeState === 'revealed' ? 'open' : ''} ${envelopeState === 'revealed' ? 'reveal-letter' : ''}`}>
+              
+              {/* Back background of the envelope */}
+              <div className="envelope-back-bg" />
 
-            <button
-              className="seal-button"
-              onClick={() => setSealBroken(true)}
-              title="Click to open invitation"
-            >
-              <div className="wax-seal">
-                <div className="seal-inner">✦</div>
+              {/* Tucked Letter Card */}
+              <div className="envelope-letter">
+                <svg className="letter-floral-top" viewBox="0 0 100 50" fill="none" xmlns="http://www.w3.org/2000/svg">
+                  <path d="M50 45 C45 35, 48 25, 52 5" stroke="#7d8c6b" strokeWidth="1.5" strokeLinecap="round" />
+                  <circle cx="52" cy="5" r="2" fill="#9073b3" />
+                  <circle cx="48" cy="12" r="3" fill="#7b5b9e" />
+                  <circle cx="56" cy="14" r="3" fill="#a38fc2" />
+                  <circle cx="47" cy="22" r="3" fill="#9073b3" />
+                  <circle cx="57" cy="24" r="3" fill="#b19cd9" />
+                </svg>
+                <h2 className="letter-title">Eishan & Gayani</h2>
+                <p className="letter-subtitle">Save the Date</p>
+                <p className="letter-date">15 November 2026</p>
+                <button className="letter-enter-btn" onClick={handleRevealInvitation}>
+                  Open Invitation
+                </button>
               </div>
-              <p className="seal-text">TAP TO BREAK SEAL</p>
-            </button>
+
+              {/* Envelope side & bottom flaps */}
+              <div className="envelope-flap left">
+                <LavenderTwig className="flap-decor left-flap-decor" />
+              </div>
+              <div className="envelope-flap right">
+                <LavenderTwig className="flap-decor right-flap-decor" />
+              </div>
+              <div className="envelope-flap bottom" />
+
+              {/* Title displayed on the closed envelope front */}
+              <h1 className="envelope-closed-title">The Invitation</h1>
+
+              {/* Top flap that opens upwards */}
+              <div className="envelope-flap top" />
+
+              {/* Wax Seal click button centered */}
+              <div className="envelope-seal-container">
+                <button className="envelope-seal-btn" onClick={handleOpenEnvelope} title="Tap to open invitation">
+                  <div className="envelope-wax-seal">
+                    <SealStampSvg />
+                  </div>
+                </button>
+                <p className="seal-prompt-text">Tap to Break Seal</p>
+              </div>
+
+            </div>
           </div>
         </div>
       )}
+
+      {/* Global music control button */}
+      <button className="audio-control-btn" onClick={toggleAudio} title={audioPlaying ? "Mute Music" : "Play Music"}>
+        {audioPlaying ? (
+          <svg viewBox="0 0 24 24">
+            <path d="M12 4L9.91 6.09L12 8.18V4M20 12C20 14.53 18.82 16.79 17 18.27L18.43 19.7C20.62 17.78 22 15.05 22 12C22 7.33 18.78 3.4 14.5 2.37V4.44C17.65 5.43 20 8.44 20 12M4.27 3L3 4.27L7.73 9H3V15H7L12 20V13.27L16.25 17.53C15.58 18.04 14.83 18.46 14 18.7V20.76C15.38 20.44 16.63 19.79 17.69 18.95L19.73 21L21 19.73L12 10.73L4.27 3M12 5.86V10.73L9.14 7.86L12 5.86Z" />
+          </svg>
+        ) : (
+          <svg viewBox="0 0 24 24">
+            <path d="M14,3.23V5.29C16.89,6.15 19,8.83 19,12C19,15.17 16.89,17.85 14,18.71V20.77C18,19.86 21,16.28 21,12C21,7.72 18,4.14 14,3.23M16.5,12C16.5,10.23 15.5,8.71 14,7.97V16C15.5,15.29 16.5,13.77 16.5,12M3,9V15H7L12,20V4L7,9H3Z" />
+          </svg>
+        )}
+      </button>
 
       <nav className="nav">
         <a href="#home">Home</a>

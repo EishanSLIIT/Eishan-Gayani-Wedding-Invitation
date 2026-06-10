@@ -1,31 +1,33 @@
-import { MongoClient, Db } from 'mongodb';
-import dns from 'dns';
-
-// Fix Node.js DNS resolution issues (specifically ENOTFOUND on MongoDB SRV records)
-dns.setDefaultResultOrder('ipv4first');
+import { MongoClient, Db } from "mongodb";
 
 const uri = process.env.MONGODB_URI;
 
 if (!uri) {
-  console.warn('MONGODB_URI is not set. RSVP saving will fail until configured.');
+  throw new Error("Please add your MONGODB_URI to .env.local");
 }
 
 declare global {
-  // eslint-disable-next-line no-var
   var _mongoClientPromise: Promise<MongoClient> | undefined;
 }
 
-const options = {};
 let clientPromise: Promise<MongoClient>;
 
 if (!global._mongoClientPromise) {
-  const client = new MongoClient(uri || '', options);
-  global._mongoClientPromise = client.connect();
+  const client = new MongoClient(uri);
+  global._mongoClientPromise = client.connect()
+    .then((client) => {
+      console.log("MongoDB database connected successfully");
+      return client;
+    })
+    .catch((err) => {
+      console.error("MongoDB database connection failed:", err);
+      throw err;
+    });
 }
 
 clientPromise = global._mongoClientPromise;
 
 export async function getDb(): Promise<Db> {
   const client = await clientPromise;
-  return client.db();
+  return client.db("weddingDB");
 }
