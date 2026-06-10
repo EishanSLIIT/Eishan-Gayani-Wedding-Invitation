@@ -53,19 +53,7 @@ export default function AdminPage() {
   }
 
   useEffect(() => {
-    // Check if user is already logged in (optional - remove if you want to force login every time)
-    const checkAuth = async () => {
-      try {
-        const res = await fetch("/api/admin/check");
-        if (res.ok) {
-          await loadData();
-          setLoggedIn(true);
-        }
-      } catch (error) {
-        console.error("Auth check failed:", error);
-      }
-    };
-    checkAuth();
+    // Session check on load removed to force login every time.
   }, []);
 
   async function login(event: React.FormEvent<HTMLFormElement>) {
@@ -91,7 +79,12 @@ export default function AdminPage() {
     }
   }
 
-  function logout() {
+  async function logout() {
+    try {
+      await fetch("/api/admin/logout", { method: "POST" });
+    } catch (error) {
+      console.error("Logout request failed:", error);
+    }
     setLoggedIn(false);
     setRsvps([]);
     setStatus("");

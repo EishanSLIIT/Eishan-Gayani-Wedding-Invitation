@@ -10,24 +10,35 @@ declare global {
   var _mongoClientPromise: Promise<MongoClient> | undefined;
 }
 
-let clientPromise: Promise<MongoClient>;
-
-if (!global._mongoClientPromise) {
+function createClientPromise(): Promise<MongoClient> {
   const client = new MongoClient(uri);
-  global._mongoClientPromise = client.connect()
-    .then((client) => {
+  return client.connect()
+    .then((c) => {
       console.log("MongoDB database connected successfully");
-      return client;
+      return c;
     })
     .catch((err) => {
       console.error("MongoDB database connection failed:", err);
+      // Clear it so the next connection attempt can retry
+      if (process.env.NODE_ENV === "development") {
+        global._mongoClientPromise = undefined;
+      }
       throw err;
     });
 }
 
-clientPromise = global._mongoClientPromise;
-
 export async function getDb(): Promise<Db> {
-  const client = await clientPromise;
+  let promise: Promise<MongoClient>;
+  
+  if (process.env.NODE_ENV === "development") {
+    if (!global._mongoClientPromise) {
+      global._mongoClientPromise = createClientPromise();
+    }
+    promise = global._mongoClientPromise;
+  } else {
+    promise = createClientPromise();
+  }
+  
+  const client = await promise;
   return client.db("weddingDB");
 }
