@@ -11,7 +11,7 @@ declare global {
 }
 
 function createClientPromise(): Promise<MongoClient> {
-  const client = new MongoClient(uri);
+  const client = new MongoClient(uri!);
   return client.connect()
     .then((c) => {
       console.log("MongoDB database connected successfully");
