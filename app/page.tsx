@@ -127,6 +127,8 @@ export default function Home() {
   const [status, setStatus] = useState("");
   const [attending, setAttending] = useState<string>("");
   const [venueFlipped, setVenueFlipped] = useState(false);
+  const [dateFlipped, setDateFlipped] = useState(false);
+  const [ceremonyFlipped, setCeremonyFlipped] = useState(false);
   const [countdown, setCountdown] = useState({
     days: 0,
     hours: 0,
@@ -323,19 +325,47 @@ export default function Home() {
       <section className="section" id="details">
         <h2>Wedding Details</h2>
         <div className="details">
-          <a 
-            href="https://calendar.google.com/calendar/render?action=TEMPLATE&text=Eishan+%26+Gayani%27s+Wedding&dates=20261115T033000Z/20261115T103000Z&details=We+warmly+invite+you+to+celebrate+our+special+wedding+day+with+us+at+Centauria+Wild%2C+Udawalawe.&location=Centauria+Wild%2C+Udawalawe&sf=true&output=xml"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="card detail-card date-card-interactive"
-            title="Tap to add to Google Calendar"
+          <div 
+            className={`flip-card detail-card date-card-interactive ${dateFlipped ? 'flipped' : ''}`}
+            onClick={() => setDateFlipped(!dateFlipped)}
+            title="Tap for Details"
           >
-            <div className="card-icon"><CalendarIconSvg /></div>
-            <h3>Date</h3>
-            <p>Sunday</p>
-            <p className="highlight">15 November 2026</p>
-            <span className="card-tap-hint">Tap to Add Event</span>
-          </a>
+            <div className="flip-card-inner">
+              <div className="flip-card-front">
+                <div className="card-icon"><CalendarIconSvg /></div>
+                <h3>Date</h3>
+                <p>Sunday</p>
+                <p className="highlight">15 November 2026</p>
+                <span className="card-tap-hint">Tap for Details</span>
+              </div>
+              
+              <div className="flip-card-back">
+                <div className="location-details-overlay">
+                  <span className="location-kicker">— The Date —</span>
+                  <h4 className="location-title">15 Nov 2026</h4>
+                  <p className="location-address">Sunday • 9:00 AM onwards</p>
+                  <a 
+                    href="https://calendar.google.com/calendar/render?action=TEMPLATE&text=Eishan+%26+Gayani%27s+Wedding&dates=20261115T033000Z/20261115T103000Z&details=We+warmly+invite+you+to+celebrate+our+special+wedding+day+with+us+at+Centauria+Wild%2C+Udawalawe.&location=Centauria+Wild%2C+Udawalawe&sf=true&output=xml"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="location-view-map-btn"
+                    onClick={(e) => {
+                      e.stopPropagation();
+                    }}
+                  >
+                    Add Event
+                  </a>
+                </div>
+                <div className="location-badge">
+                  <svg viewBox="0 0 100 100" style={{ width: '12px', height: '12px', marginRight: '6px', verticalAlign: 'middle', display: 'inline-block' }} xmlns="http://www.w3.org/2000/svg">
+                    <rect x="22" y="26" width="56" height="52" rx="8" stroke="currentColor" strokeWidth="6" fill="none" />
+                    <line x1="22" y1="42" x2="78" y2="42" stroke="currentColor" strokeWidth="6" />
+                  </svg>
+                  15 Nov 2026
+                </div>
+              </div>
+            </div>
+          </div>
 
           <div 
             className={`flip-card detail-card venue-card-interactive ${venueFlipped ? 'flipped' : ''}`}
@@ -362,7 +392,7 @@ export default function Home() {
                     rel="noopener noreferrer"
                     className="location-view-map-btn"
                     onClick={(e) => {
-                       e.stopPropagation();
+                      e.stopPropagation();
                     }}
                   >
                     View Map
@@ -379,19 +409,48 @@ export default function Home() {
             </div>
           </div>
 
-          <a 
-            href="https://calendar.google.com/calendar/render?action=TEMPLATE&text=Eishan+%26+Gayani%27s+Wedding&dates=20261115T033000Z/20261115T103000Z&details=We+warmly+invite+you+to+celebrate+our+special+wedding+day+with+us+at+Centauria+Wild%2C+Udawalawe.&location=Centauria+Wild%2C+Udawalawe&sf=true&output=xml"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="card detail-card ceremony-card-interactive"
-            title="Tap to add to Google Calendar"
+          <div 
+            className={`flip-card detail-card ceremony-card-interactive ${ceremonyFlipped ? 'flipped' : ''}`}
+            onClick={() => setCeremonyFlipped(!ceremonyFlipped)}
+            title="Tap for Details"
           >
-            <div className="card-icon"><ClockIconSvg /></div>
-            <h3>Ceremony</h3>
-            <p>Morning</p>
-            <p className="highlight">9:00 AM onwards</p>
-            <span className="card-tap-hint">Tap to Add Event</span>
-          </a>
+            <div className="flip-card-inner">
+              <div className="flip-card-front">
+                <div className="card-icon"><ClockIconSvg /></div>
+                <h3>Ceremony</h3>
+                <p>Morning</p>
+                <p className="highlight">9:00 AM onwards</p>
+                <span className="card-tap-hint">Tap for Details</span>
+              </div>
+              
+              <div className="flip-card-back">
+                <div className="location-details-overlay">
+                  <span className="location-kicker">— Ceremony —</span>
+                  <h4 className="location-title">Poruwa Ceremony</h4>
+                  <p className="location-address">Traditional Rituals & Blessings</p>
+                  <a 
+                    href="https://calendar.google.com/calendar/render?action=TEMPLATE&text=Eishan+%26+Gayani%27s+Wedding&dates=20261115T033000Z/20261115T103000Z&details=We+warmly+invite+you+to+celebrate+our+special+wedding+day+with+us+at+Centauria+Wild%2C+Udawalawe.&location=Centauria+Wild%2C+Udawalawe&sf=true&output=xml"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="location-view-map-btn"
+                    onClick={(e) => {
+                      e.stopPropagation();
+                    }}
+                  >
+                    Add Event
+                  </a>
+                </div>
+                <div className="location-badge">
+                  <svg viewBox="0 0 100 100" style={{ width: '12px', height: '12px', marginRight: '6px', verticalAlign: 'middle', display: 'inline-block' }} xmlns="http://www.w3.org/2000/svg">
+                    <circle cx="50" cy="50" r="30" stroke="currentColor" strokeWidth="6" fill="none" />
+                    <line x1="50" y1="50" x2="50" y2="34" stroke="currentColor" strokeWidth="6" strokeLinecap="round" />
+                    <line x1="50" y1="50" x2="38" y2="50" stroke="currentColor" strokeWidth="6" strokeLinecap="round" />
+                  </svg>
+                  9:00 AM onwards
+                </div>
+              </div>
+            </div>
+          </div>
         </div>
       </section>
 

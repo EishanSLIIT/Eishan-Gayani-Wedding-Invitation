@@ -1936,6 +1936,7 @@ tr:last-child td {
 }
 
 /* Interactive Details Cards */
+/* Interactive Details Cards */
 .detail-card {
   text-decoration: none;
   display: flex;
@@ -1946,30 +1947,81 @@ tr:last-child td {
   overflow: hidden;
 }
 
-.date-card-interactive {
+/* Typography Enhancements for Elegant Wedding Feel */
+.detail-card h3 {
+  font-family: Georgia, serif;
+  font-size: clamp(20px, 4.5vw, 24px);
+  color: #4A3E3D;
+  font-weight: normal;
+  margin: 10px 0 6px;
+  letter-spacing: 0.5px;
+  text-transform: none;
+  position: relative;
+  z-index: 3;
+}
+.detail-card p {
+  margin: 3px 0;
+  font-size: clamp(12.5px, 3vw, 14.5px);
+  color: #7d6e5d;
+  font-family: Georgia, serif;
+  line-height: 1.4;
+  position: relative;
+  z-index: 3;
+}
+.detail-card .highlight {
+  font-family: Georgia, serif;
+  font-size: clamp(15px, 3.5vw, 18px);
+  color: var(--gold);
+  font-weight: normal;
+  font-style: italic;
+  margin-top: 4px;
+  position: relative;
+  z-index: 3;
+}
+
+/* Date Card Interactive background overrides */
+.date-card-interactive .flip-card-front {
   background-image: linear-gradient(rgba(255, 255, 255, 0.88), rgba(255, 255, 255, 0.88)), url('/photos/preshoot-1.png');
   background-size: cover;
   background-position: center;
 }
-
-.ceremony-card-interactive {
-  background-image: linear-gradient(rgba(255, 255, 255, 0.88), rgba(255, 255, 255, 0.88)), url('/photos/venue-hall.png');
+.date-card-interactive:hover .flip-card-front {
+  background-image: linear-gradient(rgba(255, 255, 255, 0.78), rgba(255, 255, 255, 0.78)), url('/photos/preshoot-1.png');
+}
+.date-card-interactive .flip-card-back {
+  background-image: linear-gradient(rgba(255, 255, 255, 0.35), rgba(255, 255, 255, 0.35)), url('/photos/preshoot-2.png');
   background-size: cover;
   background-position: center;
 }
 
-.detail-card:hover {
-  transform: translateY(-6px);
-  box-shadow: 0 15px 35px rgba(197, 160, 89, 0.15);
-  border-color: rgba(197, 160, 89, 0.5);
+/* Venue Card Interactive background overrides */
+.venue-card-interactive .flip-card-front {
+  background-image: linear-gradient(rgba(255, 255, 255, 0.88), rgba(255, 255, 255, 0.88)), url('/photos/venue-lawn.png');
+  background-size: cover;
+  background-position: center;
+}
+.venue-card-interactive:hover .flip-card-front {
+  background-image: linear-gradient(rgba(255, 255, 255, 0.78), rgba(255, 255, 255, 0.78)), url('/photos/venue-lawn.png');
+}
+.venue-card-interactive .flip-card-back {
+  background-image: linear-gradient(rgba(255, 255, 255, 0.35), rgba(255, 255, 255, 0.35)), url('/photos/venue-hall.png');
+  background-size: cover;
+  background-position: center;
 }
 
-.detail-card.date-card-interactive:hover {
-  background-image: linear-gradient(rgba(255, 255, 255, 0.78), rgba(255, 255, 255, 0.78)), url('/photos/preshoot-1.png');
+/* Ceremony Card Interactive background overrides */
+.ceremony-card-interactive .flip-card-front {
+  background-image: linear-gradient(rgba(255, 255, 255, 0.88), rgba(255, 255, 255, 0.88)), url('/photos/venue-hall.png');
+  background-size: cover;
+  background-position: center;
 }
-
-.detail-card.ceremony-card-interactive:hover {
+.ceremony-card-interactive:hover .flip-card-front {
   background-image: linear-gradient(rgba(255, 255, 255, 0.78), rgba(255, 255, 255, 0.78)), url('/photos/venue-hall.png');
+}
+.ceremony-card-interactive .flip-card-back {
+  background-image: linear-gradient(rgba(255, 255, 255, 0.35), rgba(255, 255, 255, 0.35)), url('/photos/preshoot-3.png');
+  background-size: cover;
+  background-position: center;
 }
 
 .card-tap-hint {
@@ -2045,21 +2097,12 @@ tr:last-child td {
   pointer-events: none;
 }
 
-.venue-card-interactive .flip-card-front {
-  background-image: linear-gradient(rgba(255, 255, 255, 0.88), rgba(255, 255, 255, 0.88)), url('/photos/venue-lawn.png');
-  background-size: cover;
-  background-position: center;
-}
-
-.venue-card-interactive:hover .flip-card-front {
+.flip-card:hover .flip-card-front {
   border-color: rgba(197, 160, 89, 0.5);
   box-shadow: 0 15px 35px rgba(197, 160, 89, 0.15);
 }
 
 .flip-card-back {
-  background-image: linear-gradient(rgba(255, 255, 255, 0.35), rgba(255, 255, 255, 0.35)), url('/photos/venue-hall.png');
-  background-size: cover;
-  background-position: center;
   transform: rotateY(180deg);
   justify-content: flex-start;
   align-items: flex-start;
