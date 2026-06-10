@@ -7,7 +7,7 @@ A simple Next.js wedding invitation website with RSVP saving to MongoDB and a pr
 - Date: 15 November 2026
 - Venue: Centauria Wild, Udawalawe
 - Groom's parents: Jayasiri and Sandya
-- Bride's parents: sample names, replace later
+- Bride's parents: Dharmasena and Suneetha
 
 ## Run Locally
 ```bash

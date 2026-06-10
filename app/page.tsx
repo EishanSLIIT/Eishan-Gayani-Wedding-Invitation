@@ -693,9 +693,9 @@ export default function Home() {
             <h3>Bride&apos;s Parents</h3>
             <div className="card-divider-gold" />
             <p className="parent-names">
-              Mr. [Bride&apos;s Father Name]
+              Mr. Anaththa Pathiranage Dharmasena
               <br />
-              Mrs. [Bride&apos;s Mother Name]
+              Mrs. Hewa Vitharanage Suneetha
             </p>
           </div>
         </div>
