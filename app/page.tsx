@@ -107,14 +107,14 @@ function ClockIconSvg() {
 
 // ─── Timeline Events Data ─────────────────────────────────────────
 const timelineEvents = [
-  { time: "8:30 AM",  icon: "🌿", title: "Welcome Ceremony",        desc: "Greeting our guests with traditional betel leaves and warm hospitality." },
-  { time: "9:00 AM",  icon: "🍽️", title: "Wedding Breakfast",       desc: "Serving traditional Sri Lankan breakfast and delicious wedding sweetmeats." },
-  { time: "9:45 AM",  icon: "💍", title: "Poruwa Ceremony",          desc: "Sacred marriage rituals on the Poruwa, exchange of rings, and traditional blessings." },
-  { time: "11:00 AM", icon: "📸", title: "Photo Session",            desc: "Capturing beautiful portraits and memories with family and friends." },
-  { time: "11:45 AM", icon: "🥂", title: "Reception",               desc: "Welcoming the newlyweds into the grand reception hall." },
-  { time: "12:30 PM", icon: "🍱", title: "Lunch",                   desc: "A festive wedding lunch buffet and toasts to celebrate the union." },
-  { time: "2:30 PM",  icon: "👗", title: "Going Away Photo Session", desc: "Capturing the couple's second attire and portrait sessions." },
-  { time: "3:30 PM",  icon: "🕊️", title: "Going Away",              desc: "The newlyweds depart with blessings and love." },
+  { time: "8:30 AM", icon: "🌿", title: "Welcome Ceremony", desc: "Greeting our guests with traditional betel leaves and warm hospitality." },
+  { time: "9:00 AM", icon: "🍽️", title: "Wedding Breakfast", desc: "Serving traditional Sri Lankan breakfast and delicious wedding sweetmeats." },
+  { time: "9:45 AM", icon: "💍", title: "Poruwa Ceremony", desc: "Sacred marriage rituals on the Poruwa, exchange of rings, and traditional blessings." },
+  { time: "11:00 AM", icon: "📸", title: "Photo Session", desc: "Capturing beautiful portraits and memories with family and friends." },
+  { time: "11:45 AM", icon: "🥂", title: "Reception", desc: "Welcoming the newlyweds into the grand reception hall." },
+  { time: "12:30 PM", icon: "🍱", title: "Lunch", desc: "A festive wedding lunch buffet and toasts to celebrate the union." },
+  { time: "2:30 PM", icon: "👗", title: "Going Away Photo Session", desc: "Capturing the couple's second attire and portrait sessions." },
+  { time: "3:30 PM", icon: "🕊️", title: "Going Away", desc: "The newlyweds depart with blessings and love." },
 ];
 
 // ─── Gallery Photos Data ──────────────────────────────────────────
@@ -129,45 +129,45 @@ const galleryPhotos = [
 
 // ─── Default Wishes ───────────────────────────────────────────────
 const defaultWishes = [
-  { name: "Aunt Kamala",      message: "Wishing you both a lifetime of love, laughter and happiness! 💐",           time: "A few days ago" },
-  { name: "Uncle Sunil",      message: "May your journey together be filled with joy and blessings. Congratulations!", time: "A few days ago" },
-  { name: "Priya & Tharanga", message: "So happy for you both! You make a beautiful couple. Lots of love! 🌸",      time: "A few days ago" },
+  { name: "Aunt Kamala", message: "Wishing you both a lifetime of love, laughter and happiness! 💐", time: "A few days ago" },
+  { name: "Uncle Sunil", message: "May your journey together be filled with joy and blessings. Congratulations!", time: "A few days ago" },
+  { name: "Priya & Tharanga", message: "So happy for you both! You make a beautiful couple. Lots of love! 🌸", time: "A few days ago" },
 ];
 
 // ─── Nav Links ────────────────────────────────────────────────────
 const navLinks = [
-  { href: "#home",     label: "Home",     id: "home" },
-  { href: "#details",  label: "Details",  id: "details" },
+  { href: "#home", label: "Home", id: "home" },
+  { href: "#details", label: "Details", id: "details" },
   { href: "#timeline", label: "Timeline", id: "timeline" },
-  { href: "#gallery",  label: "Photos",   id: "gallery" },
-  { href: "#rsvp",     label: "RSVP",     id: "rsvp" },
+  { href: "#gallery", label: "Photos", id: "gallery" },
+  { href: "#rsvp", label: "RSVP", id: "rsvp" },
 ];
 
 // ─── Main Component ───────────────────────────────────────────────
 export default function Home() {
   // Existing states
-  const [sealBroken,     setSealBroken]     = useState(false);
-  const [envelopeState,  setEnvelopeState]  = useState<"closed" | "opening" | "revealed">("closed");
-  const [audioPlaying,   setAudioPlaying]   = useState(false);
-  const [isFadingOut,    setIsFadingOut]    = useState(false);
+  const [sealBroken, setSealBroken] = useState(false);
+  const [envelopeState, setEnvelopeState] = useState<"closed" | "opening" | "revealed">("closed");
+  const [audioPlaying, setAudioPlaying] = useState(false);
+  const [isFadingOut, setIsFadingOut] = useState(false);
   const audioRef = useRef<HTMLAudioElement>(null);
-  const [status,         setStatus]         = useState("");
-  const [attending,      setAttending]      = useState<string>("");
-  const [dateFlipped,    setDateFlipped]    = useState(false);
-  const [venueFlipped,   setVenueFlipped]   = useState(false);
-  const [ceremonyFlipped,setCeremonyFlipped]= useState(false);
-  const [countdown,      setCountdown]      = useState({ days: 0, hours: 0, minutes: 0, seconds: 0 });
+  const [status, setStatus] = useState("");
+  const [attending, setAttending] = useState<string>("");
+  const [dateFlipped, setDateFlipped] = useState(false);
+  const [venueFlipped, setVenueFlipped] = useState(false);
+  const [ceremonyFlipped, setCeremonyFlipped] = useState(false);
+  const [countdown, setCountdown] = useState({ days: 0, hours: 0, minutes: 0, seconds: 0 });
 
   // New states
-  const [pageLoaded,     setPageLoaded]     = useState(false);
-  const [navScrolled,    setNavScrolled]    = useState(false);
+  const [pageLoaded, setPageLoaded] = useState(false);
+  const [navScrolled, setNavScrolled] = useState(false);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
-  const [activeSection,  setActiveSection]  = useState("home");
-  const [lightboxOpen,   setLightboxOpen]   = useState(false);
-  const [lightboxImage,  setLightboxImage]  = useState("");
-  const [lightboxAlt,    setLightboxAlt]    = useState("");
-  const [hasInteracted,  setHasInteracted]  = useState(false);
-  const [autoFlipIndex,  setAutoFlipIndex]  = useState(0);
+  const [activeSection, setActiveSection] = useState("home");
+  const [lightboxOpen, setLightboxOpen] = useState(false);
+  const [lightboxImage, setLightboxImage] = useState("");
+  const [lightboxAlt, setLightboxAlt] = useState("");
+  const [hasInteracted, setHasInteracted] = useState(false);
+  const [autoFlipIndex, setAutoFlipIndex] = useState(0);
   const [wishes, setWishes] = useState<Array<{ name: string; message: string; time: string }>>(defaultWishes);
 
   // ── Page load delay (loading screen) ──
@@ -192,10 +192,10 @@ export default function Home() {
       const dist = new Date("2026-11-15T00:00:00").getTime() - Date.now();
       if (dist > 0) {
         setCountdown({
-          days:    Math.floor(dist / 86400000),
-          hours:   Math.floor((dist / 3600000) % 24),
-          minutes: Math.floor((dist / 60000)   % 60),
-          seconds: Math.floor((dist / 1000)    % 60),
+          days: Math.floor(dist / 86400000),
+          hours: Math.floor((dist / 3600000) % 24),
+          minutes: Math.floor((dist / 60000) % 60),
+          seconds: Math.floor((dist / 1000) % 60),
         });
       }
     }, 1000);
@@ -297,16 +297,16 @@ export default function Home() {
     event.preventDefault();
     const formEl = event.currentTarget;
     setStatus("Saving…");
-    const form    = new FormData(formEl);
+    const form = new FormData(formEl);
     const payload = Object.fromEntries(form.entries());
     const res = await fetch("/api/rsvp", {
-      method:  "POST",
+      method: "POST",
       headers: { "Content-Type": "application/json" },
-      body:    JSON.stringify(payload),
+      body: JSON.stringify(payload),
     });
     if (res.ok) {
       setStatus("Thank you! We have received your RSVP. We look forward to celebrating with you.");
-      const name    = String(payload.name    || "").trim();
+      const name = String(payload.name || "").trim();
       const message = String(payload.message || "").trim();
       if (name && message) {
         setWishes(prev => [{ name, message, time: "Just now" }, ...prev]);
@@ -319,8 +319,8 @@ export default function Home() {
   }
 
   // ── Compute flip states (auto + manual) ──
-  const isDateFlipped     = dateFlipped     || (!hasInteracted && autoFlipIndex === 0);
-  const isVenueFlipped    = venueFlipped    || (!hasInteracted && autoFlipIndex === 1);
+  const isDateFlipped = dateFlipped || (!hasInteracted && autoFlipIndex === 0);
+  const isVenueFlipped = venueFlipped || (!hasInteracted && autoFlipIndex === 1);
   const isCeremonyFlipped = ceremonyFlipped || (!hasInteracted && autoFlipIndex === 2);
 
   const handleCardClick = (setter: React.Dispatch<React.SetStateAction<boolean>>, current: boolean) => {
@@ -363,7 +363,7 @@ export default function Home() {
               <div className="envelope-letter">
                 <svg className="letter-floral-top" viewBox="0 0 100 50" fill="none" xmlns="http://www.w3.org/2000/svg">
                   <path d="M50 45 C45 35, 48 25, 52 5" stroke="#7d8c6b" strokeWidth="1.5" strokeLinecap="round" />
-                  <circle cx="52" cy="5"  r="2" fill="#9073b3" />
+                  <circle cx="52" cy="5" r="2" fill="#9073b3" />
                   <circle cx="48" cy="12" r="3" fill="#7b5b9e" />
                   <circle cx="56" cy="14" r="3" fill="#a38fc2" />
                   <circle cx="47" cy="22" r="3" fill="#9073b3" />
@@ -380,7 +380,7 @@ export default function Home() {
               <div className="envelope-flap left"><LavenderTwig className="flap-decor left-flap-decor" /></div>
               <div className="envelope-flap right"><LavenderTwig className="flap-decor right-flap-decor" /></div>
               <div className="envelope-flap bottom" />
-              <h1 className="envelope-closed-title">The Invitation</h1>
+              <h1 className="envelope-closed-title">The INVITATION</h1>
               <div className="envelope-flap top" />
 
               <div className="envelope-seal-container">
@@ -412,7 +412,7 @@ export default function Home() {
         title="Contact us on WhatsApp"
       >
         <svg viewBox="0 0 24 24" fill="currentColor">
-          <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/>
+          <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z" />
         </svg>
       </a>
 
@@ -594,10 +594,10 @@ export default function Home() {
         <p className="countdown-title">Countdown to our day</p>
         <div className="countdown">
           {[
-            { value: countdown.days,    label: "Days"  },
-            { value: countdown.hours,   label: "Hours" },
-            { value: countdown.minutes, label: "Mins"  },
-            { value: countdown.seconds, label: "Secs"  },
+            { value: countdown.days, label: "Days" },
+            { value: countdown.hours, label: "Hours" },
+            { value: countdown.minutes, label: "Mins" },
+            { value: countdown.seconds, label: "Secs" },
           ].map(({ value, label }) => (
             <div key={label} className="countdown-item">
               <div className="countdown-value">{String(value).padStart(2, "0")}</div>
@@ -713,13 +713,12 @@ export default function Home() {
               <div className="button-group">
                 <input type="radio" id="yes" name="attending" value="Yes" required onChange={e => setAttending(e.target.value)} checked={attending === "Yes"} />
                 <label htmlFor="yes" className="radio-label">🎉 Happily Attending</label>
-                <input type="radio" id="no"  name="attending" value="No"  onChange={e => setAttending(e.target.value)} checked={attending === "No"}  />
-                <label htmlFor="no"  className="radio-label">🥺 Regretfully Declining</label>
+                <input type="radio" id="no" name="attending" value="No" onChange={e => setAttending(e.target.value)} checked={attending === "No"} />
+                <label htmlFor="no" className="radio-label">🥺 Regretfully Declining</label>
               </div>
             </div>
 
-            <input name="name"  type="text" placeholder="Full Name *"       required className="form-input" />
-            <input name="phone" type="tel"  placeholder="Contact Number"              className="form-input" />
+            <input name="name" type="text" placeholder="Full Name *" required className="form-input" />
 
             {attending === "Yes" && (
               <div className="form-group">
