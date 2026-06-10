@@ -59,12 +59,29 @@ export default function Home() {
   const audioRef = useRef<HTMLAudioElement>(null);
   const [status, setStatus] = useState("");
   const [attending, setAttending] = useState<string>("");
+  const [venueFlipped, setVenueFlipped] = useState(false);
   const [countdown, setCountdown] = useState({
     days: 0,
     hours: 0,
     minutes: 0,
     seconds: 0,
   });
+
+  useEffect(() => {
+    const audio = audioRef.current;
+    if (audio) {
+      audio.volume = 0.12;
+      const handleVolumeChange = () => {
+        if (audio.volume > 0.15) {
+          audio.volume = 0.12;
+        }
+      };
+      audio.addEventListener('volumechange', handleVolumeChange);
+      return () => {
+        audio.removeEventListener('volumechange', handleVolumeChange);
+      };
+    }
+  }, []);
 
   useEffect(() => {
     const timer = setInterval(() => {
@@ -253,19 +270,43 @@ export default function Home() {
             <span className="card-tap-hint">Tap to Add Event</span>
           </a>
 
-          <a 
-            href="https://www.google.com/maps/search/?api=1&query=Centauria+Wild+Udawalawe"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="card detail-card venue-card-interactive"
-            title="Tap to open in Google Maps"
+          <div 
+            className={`flip-card detail-card venue-card-interactive ${venueFlipped ? 'flipped' : ''}`}
+            onClick={() => setVenueFlipped(!venueFlipped)}
+            title="Tap for Details"
           >
-            <div className="card-icon">📍</div>
-            <h3>Venue</h3>
-            <p>Centauria Wild</p>
-            <p className="highlight">Udawalawe</p>
-            <span className="card-tap-hint">Tap to Open Maps</span>
-          </a>
+            <div className="flip-card-inner">
+              <div className="flip-card-front">
+                <div className="card-icon">📍</div>
+                <h3>Venue</h3>
+                <p>Centauria Wild</p>
+                <p className="highlight">Udawalawe</p>
+                <span className="card-tap-hint">Tap for Details</span>
+              </div>
+              
+              <div className="flip-card-back">
+                <div className="location-details-overlay">
+                  <span className="location-kicker">— The Location —</span>
+                  <h4 className="location-title">Centauria Wild</h4>
+                  <p className="location-address">Udawalawe, Sri Lanka</p>
+                  <a 
+                    href="https://www.google.com/maps/search/?api=1&query=Centauria+Wild+Udawalawe"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="location-view-map-btn"
+                    onClick={(e) => {
+                      e.stopPropagation();
+                    }}
+                  >
+                    View Map
+                  </a>
+                </div>
+                <div className="location-badge">
+                  📍 Centauria Wild
+                </div>
+              </div>
+            </div>
+          </div>
 
           <a 
             href="https://calendar.google.com/calendar/render?action=TEMPLATE&text=Eishan+%26+Gayani%27s+Wedding&dates=20261115T033000Z/20261115T103000Z&details=We+warmly+invite+you+to+celebrate+our+special+wedding+day+with+us+at+Centauria+Wild%2C+Udawalawe.&location=Centauria+Wild%2C+Udawalawe&sf=true&output=xml"
@@ -282,76 +323,6 @@ export default function Home() {
           </a>
         </div>
 
-        <div className="venue-showcase card">
-          <div className="venue-header">
-            <h3>The Venue - Centauria Wild Udawalawe</h3>
-            <p className="venue-description">
-              Nestled adjacent to the famous Udawalawe National Park, Centauria Wild is a tropical paradise where luxury meets the raw beauty of nature. We can't wait to share the magic of this wilderness sanctuary with you.
-            </p>
-          </div>
-          
-          <div className="venue-gallery">
-            <div className="venue-photo-card">
-              <div className="venue-photo-wrapper">
-                <img src="/photos/venue-lawn.png" alt="Centauria Wild Lawn" />
-              </div>
-              <span className="photo-caption">Resort poolside garden & lawns</span>
-            </div>
-            <div className="venue-photo-card">
-              <div className="venue-photo-wrapper">
-                <img src="/photos/venue-hall.png" alt="Centauria Wild Reception Hall" />
-              </div>
-              <span className="photo-caption">Elegant reception ballroom</span>
-            </div>
-          </div>
-
-          <div className="venue-actions">
-            <a 
-              href="https://www.google.com/maps/search/?api=1&query=Centauria+Wild+Udawalawe" 
-              target="_blank" 
-              rel="noopener noreferrer" 
-              className="action-btn map-btn"
-            >
-              📍 Open in Google Maps
-            </a>
-            
-            <a 
-              href="https://calendar.google.com/calendar/render?action=TEMPLATE&text=Eishan+%26+Gayani%27s+Wedding&dates=20261115T033000Z/20261115T103000Z&details=We+warmly+invite+you+to+celebrate+our+special+wedding+day+with+us+at+Centauria+Wild%2C+Udawalawe.&location=Centauria+Wild%2C+Udawalawe&sf=true&output=xml" 
-              target="_blank" 
-              rel="noopener noreferrer" 
-              className="action-btn calendar-btn-google"
-            >
-              📅 Add to Google Calendar
-            </a>
-            
-            <button 
-              onClick={() => {
-                const icsContent = [
-                  "BEGIN:VCALENDAR",
-                  "VERSION:2.0",
-                  "BEGIN:VEVENT",
-                  "DTSTART:20261115T033000Z",
-                  "DTEND:20261115T103000Z",
-                  "SUMMARY:Eishan & Gayani's Wedding",
-                  "DESCRIPTION:Celebrate our wedding day with us at Centauria Wild, Udawalawe.",
-                  "LOCATION:Centauria Wild, Udawalawe",
-                  "END:VEVENT",
-                  "END:VCALENDAR"
-                ].join("\r\n");
-                const blob = new Blob([icsContent], { type: "text/calendar;charset=utf-8" });
-                const link = document.createElement("a");
-                link.href = URL.createObjectURL(blob);
-                link.download = "wedding-eishan-gayani.ics";
-                document.body.appendChild(link);
-                link.click();
-                document.body.removeChild(link);
-              }}
-              className="action-btn calendar-btn-ical"
-            >
-              🔔 Add to Apple / Outlook
-            </button>
-          </div>
-        </div>
       </section>
 
       <section className="countdown-section">
