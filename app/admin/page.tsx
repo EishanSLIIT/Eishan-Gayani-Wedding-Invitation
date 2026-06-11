@@ -7,6 +7,7 @@ type RSVP = {
   attending: string;
   dietary?: string;
   message?: string;
+  guestCount?: number;
   createdAt?: string;
 };
 
@@ -18,8 +19,6 @@ export default function AdminPage() {
   const [totalResponses, setTotalResponses] = useState(0);
   const [attendingCount, setAttendingCount] = useState(0);
   const [notAttendingCount, setNotAttendingCount] = useState(0);
-  const [vegCount, setVegCount] = useState(0);
-  const [nonVegCount, setNonVegCount] = useState(0);
 
   async function loadData() {
     try {
@@ -37,15 +36,9 @@ export default function AdminPage() {
         const notAttending = data.rsvps.filter(
           (r: RSVP) => r.attending === "No",
         ).length;
-        const veg = data.rsvps.filter((r: RSVP) => r.dietary === "Veg").length;
-        const nonVeg = data.rsvps.filter(
-          (r: RSVP) => r.dietary === "Non-Veg",
-        ).length;
 
         setAttendingCount(attending);
         setNotAttendingCount(notAttending);
-        setVegCount(veg);
-        setNonVegCount(nonVeg);
       }
     } catch (error) {
       console.error("Failed to load data:", error);
@@ -92,8 +85,6 @@ export default function AdminPage() {
     setTotalResponses(0);
     setAttendingCount(0);
     setNotAttendingCount(0);
-    setVegCount(0);
-    setNonVegCount(0);
   }
 
   if (!loggedIn) {
@@ -248,31 +239,14 @@ export default function AdminPage() {
         </div>
       </div>
 
-      <div className="dietary-section">
-        <h2>Dietary Preferences</h2>
-        <div className="dietary-grid">
-          <div className="dietary-card">
-            <div className="dietary-icon">🥗</div>
-            <div className="dietary-label">Vegetarian</div>
-            <div className="dietary-count">{vegCount}</div>
-          </div>
-          <div className="dietary-card">
-            <div className="dietary-icon">🍖</div>
-            <div className="dietary-label">Non-Vegetarian</div>
-            <div className="dietary-count">{nonVegCount}</div>
-          </div>
-        </div>
-      </div>
-
       <h2>Guest Details</h2>
       <div className="table-wrapper">
         <table className="table">
           <thead>
             <tr>
               <th>Name</th>
-              <th>Phone</th>
+              <th>Number of Participants</th>
               <th>Status</th>
-              <th>Dietary</th>
               <th>Message</th>
             </tr>
           </thead>
@@ -287,7 +261,9 @@ export default function AdminPage() {
                 }
               >
                 <td>{rsvp.name}</td>
-                <td>{rsvp.phone || "-"}</td>
+                <td>
+                  {rsvp.attending === "Yes" ? (rsvp.guestCount || 1) : 0}
+                </td>
                 <td>
                   <span
                     className={`status-badge ${rsvp.attending === "Yes" ? "status-yes" : "status-no"}`}
@@ -295,7 +271,6 @@ export default function AdminPage() {
                     {rsvp.attending === "Yes" ? "✓ Yes" : "✗ No"}
                   </span>
                 </td>
-                <td>{rsvp.dietary || "-"}</td>
                 <td>{rsvp.message || "-"}</td>
               </tr>
             ))}
